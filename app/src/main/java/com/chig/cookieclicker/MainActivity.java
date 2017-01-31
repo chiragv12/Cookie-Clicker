@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -34,8 +35,11 @@ public class MainActivity extends AppCompatActivity {
                 tennisBalls++;
                 score.setText("Tennis Balls: " + tennisBalls);
 
-                TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -4);
-                translateAnimation.setDuration(3000);
+                TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -2);
+                translateAnimation.setDuration(1000);
+
+                ScaleAnimation scaleAnimation = new ScaleAnimation(1.2f, 1.0f, 1.2f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                scaleAnimation.setDuration(300);
 
                 final TextView textView = new TextView(MainActivity.this);
                 textView.setText("+1");
@@ -47,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
                 relativeLayout.addView(textView, params);
                 textView.startAnimation(translateAnimation);
+
+                imageButton.setAnimation(scaleAnimation);
 
                 translateAnimation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
