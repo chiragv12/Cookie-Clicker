@@ -11,11 +11,13 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class MainActivity extends AppCompatActivity {
 
     ImageButton imageButton;
     RelativeLayout relativeLayout;
-    int tennisBalls;
+    AtomicInteger tennisBalls;
     TextView score;
 
     @Override
@@ -26,13 +28,15 @@ public class MainActivity extends AppCompatActivity {
         relativeLayout = (RelativeLayout) findViewById(R.id.activity_main);
         score = (TextView) findViewById(R.id.textView_score);
 
+        tennisBalls = new AtomicInteger();
+
         imageButton.setImageResource(R.drawable.djokovic);
 
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tennisBalls++;
+                tennisBalls.incrementAndGet();
                 score.setText("Tennis Balls: " + tennisBalls);
 
                 TranslateAnimation translateAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -2);
@@ -43,8 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
                 final TextView textView = new TextView(MainActivity.this);
                 textView.setText("+1");
-                textView.setPadding(0, 0, 0, 50);
-
+                int ltPad = (int)(Math.random()*301);
+                int rtPad = (int)(Math.random()*301);
+                textView.setPadding(ltPad, 0, rtPad, 50);
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 params.addRule(RelativeLayout.ABOVE, R.id.imageButton_1);
                 params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
@@ -75,6 +80,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Thread upgrades = new Thread("upgrade"){
+            public void run(){
+
+            }
+        };
+
+        //upgrades.start();
 
     }
 
